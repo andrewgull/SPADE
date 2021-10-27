@@ -27,6 +27,7 @@ def get_args():
 def get_spade_annotations(dir_name="."):
     # in the following line I inserted that lonely function argument in order this function could read files
     dirs = os.listdir(dir_name)
+    # find all SPADE.gb files in the given directory and its subdirs
     periodic_repeats = [] 
     spade_gbk_list = [f for f in dirs if "SPADE" in f]  
     for gbk in spade_gbk_list:
