@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys 
-import codecs
 from Bio import SeqIO
 import argparse
 from glob import glob
@@ -107,13 +105,13 @@ def crispr_search(features, s, e):
 
 if __name__ == "__main__":
     args = get_args()
-    output = open(args.output + "/SPADE_annotations.tsv", "w")
+    output = open(args.input_dir + "/" + args.output, "w")
     output.write("\t".join(["NCBI RefSeqID", "Start", "End", "Period", "Periodicity", "#Repeat unit", "Sequence type",
                             "Repetitive motif", "Repetitive motif masked variable positions",
                             "Overlapped CDS annotations"]) + "\n")
-    for record in SeqIO.parse(args.input_dir, "genbank"):
-        periodic_repeats = get_spade_annotations()
-        periodic_repeats = remove_overlap(periodic_repeats) 
-        for row in periodic_repeats:
-            output.write("\t".join(map(str, row)) + "\n")
+    # for record in SeqIO.parse(args.input_dir, "genbank"):
+    periodic_repeats = get_spade_annotations()
+    periodic_repeats = remove_overlap(periodic_repeats)
+    for row in periodic_repeats:
+        output.write("\t".join(map(str, row)) + "\n")
     output.close()
