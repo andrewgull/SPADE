@@ -72,7 +72,7 @@ def remove_overlap(prd_rpts):
         start, end = int(line[1]), int(line[2])
         seq_type = line[-4]
         if seq_type == "prot":
-            protein_s_e_list.append([start, end]) 
+            protein_s_e_list.append([start, end])
             new_periodic_repeats.append(line) 
         else:
             dna_s_e_list.append([start, end, line])
@@ -95,7 +95,7 @@ def remove_overlap(prd_rpts):
 def crispr_search(features, s, e):
     overlap = "None"
     for feature in features:
-        if len(list(set(range(feature.location.start,feature.location.end)) & set(range(s,e)))) > 0:
+        if len(list(set(range(feature.location.start, feature.location.end)) & set(range(s,e)))) > 0:
             if feature.type == "repeat_region" and "rpt_family" in feature.qualifiers.keys():
                 if feature.qualifiers["rpt_family"][0] == "CRISPR":
                     overlap = (1.0 * min([e, feature.location.end]) - max([s, feature.location.start])) / (max([e, feature.location.end]) - min([s, feature.location.start]))
@@ -105,12 +105,15 @@ def crispr_search(features, s, e):
 
 if __name__ == "__main__":
     args = get_args()
-    output = open(args.input_dir + "/" + args.output, "w")
+    # normalize paths
+    input_name = os.path.normpath(args.input_dir)
+    output_name = os.path.join(args.input_dir, args.output)
+    # open the file
+    output = open(output_name, "w")
     output.write("\t".join(["NCBI RefSeqID", "Start", "End", "Period", "Periodicity", "#Repeat unit", "Sequence type",
                             "Repetitive motif", "Repetitive motif masked variable positions",
                             "Overlapped CDS annotations"]) + "\n")
-    # for record in SeqIO.parse(args.input_dir, "genbank"):
-    periodic_repeats = get_spade_annotations()
+    periodic_repeats = get_spade_annotations(input_name)
     periodic_repeats = remove_overlap(periodic_repeats)
     for row in periodic_repeats:
         output.write("\t".join(map(str, row)) + "\n")
