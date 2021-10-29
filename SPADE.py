@@ -1147,41 +1147,59 @@ class HRA(object):
     def save_region_record(self):
         pass 
 
+
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(add_help=False)
+    p = argparse.ArgumentParser(description="SPADE program, a fork made by Andrei Guliaev, Uppsala University, Sweden\n"
+                                            "github/andrewgull/SPADE",
+                                formatter_class=argparse.RawTextHelpFormatter)
     p.add_argument("-V", "--version", action="store_true", default=False)
-    p.add_argument('-h', "--help", action='store_true', default=False) 
+    #p.add_argument('-h', "--help", action='store_true', default=False)
 
     p.add_argument("-in","--input", type=str, default="None", help="Input file name")
     p.add_argument("-f", type=str, default="auto", choices=("genbank","fasta","auto"))
     p.add_argument("-t", type=str, default="auto", choices=("auto","nucl","protein"))
 
-    p.add_argument("-Nk", type=int, default=10)
-    p.add_argument("-Nw", type=int, default=1000)
-    p.add_argument("-Ns", type=int, default=20)  
-    p.add_argument("-Nm", type=int, default=1000)
-    p.add_argument("-Ng", type=int, default=200)
-    p.add_argument("-Np", type=float, default=0.5)
-    p.add_argument("-Nq", type=float, default=0.5)
-    p.add_argument("-Nu", type=float, default=0.8)
-    p.add_argument("-Nr", type=int, default=5)
+    p.add_argument("-Nk", type=int, default=10, help="k-mer size\nDefault = 10")
+    p.add_argument("-Nw", type=int, default=1000,
+                   help="Size of sliding window to calculate cumulative k-mer distribution\nDefault = 1000")
+    p.add_argument("-Ns", type=int, default=20,
+                   help="Threshold for peak height of each cumulative k-mer count area\nDefault = 20")
+    p.add_argument("-Nm", type=int, default=1000,
+                   help="Size of margin to be evaluated with each detected highly repetitive region\nDefault = 1000")
+    p.add_argument("-Ng", type=int, default=200,
+                   help="Threshold for gap size between significant k-mer count areas\nDefault = 200")
+    p.add_argument("-Np", type=float, default=0.5,
+                   help="Periodicity score threshold for each detected highly repetitive region\nDefault = 0.5")
+    p.add_argument("-Nq", type=float, default=0.5,
+                   help="Gap frequency threshold for each position of a repeat motif to be removed\nDefault = 0.5")
+    p.add_argument("-Nu", type=float, default=0.8,
+                   help="Threshold for letter consistency score at each position of a repeat motif\nDefault = 0.8")
+    p.add_argument("-Nr", type=int, default=5,
+                   help="Threshold for length of non-consensus region to be removed from a repeat motif\nDefault = 5")
+    p.add_argument("-Pk", type=int, default=3, help="k-mer size\nDefault = 3")
+    p.add_argument("-Pw", type=int, default=300,
+                   help=" Size of sliding window to calculate cumulative k-mer distribution\nDefault = 300")
+    p.add_argument("-Ps", type=int, default=6,
+                   help="Threshold for peak height of each cumulative k-mer count area\nDefault = 6")
+    p.add_argument("-Pm", type=int, default=300,
+                   help="Size of margin to be evaluated with each detected highly repetitive region\nDefault = 300")
+    p.add_argument("-Pg", type=int, default=50,
+                   help="Threshold for gap size between significant k-mer count areas\nDefault = 50")
+    p.add_argument("-Pp", type=float, default=0.3,
+                   help="Periodicity score threshold for each detected highly repetitive region\nDefault = 0.3")
+    p.add_argument("-Pq", type=float, default=0.5,
+                   help="Gap frequency threshold for each position of a repeat motif to be removed\nDefault = 0.5")
+    p.add_argument("-Pu", type=float, default=0.8,
+                   help="Threshold for letter consistency score at each position of a repeat motif\nDefault = 0.8")
+    p.add_argument("-Pr", type=int, default=5,
+                   help="Threshold for length of non-consensus region to be removed from a repeat motif\nDefault = 5")
     
-    p.add_argument("-Pk", type=int, default=3)
-    p.add_argument("-Pw", type=int, default=300)
-    p.add_argument("-Ps", type=int, default=6)  
-    p.add_argument("-Pm", type=int, default=300)
-    p.add_argument("-Pg", type=int, default=50)
-    p.add_argument("-Pp", type=float, default=0.3)
-    p.add_argument("-Pq", type=float, default=0.5)
-    p.add_argument("-Pu", type=float, default=0.8)
-    p.add_argument("-Pr", type=int, default=5)
-    
-    p.add_argument("--mafft", type=str, default="--auto") 
-    p.add_argument("--blastn", type=str, default='-strand plus -task blastn-short -penalty -2 -outfmt "6 qseqid qseq sseqid sseq pident qlen length mismatch gapopen qstart qend sstart send gaps evalue bitscore"') 
-    p.add_argument("--blastp", type=str, default='-task blastp-short -outfmt "6 qseqid qseq sseqid sseq pident qlen length mismatch gapopen qstart qend sstart send gaps evalue bitscore"')
-    p.add_argument("-n", "--num_threads", type=int, default=1) 
-    p.add_argument("-v", type=str, default="Y", choices=("Y","N"))
-    p.add_argument("-d", "--delete", action="store_true", default=False)
+    p.add_argument("--mafft", type=str, default="--auto", help="")
+    p.add_argument("--blastn", type=str, default='-strand plus -task blastn-short -penalty -2 -outfmt "6 qseqid qseq sseqid sseq pident qlen length mismatch gapopen qstart qend sstart send gaps evalue bitscore"', help="")
+    p.add_argument("--blastp", type=str, default='-task blastp-short -outfmt "6 qseqid qseq sseqid sseq pident qlen length mismatch gapopen qstart qend sstart send gaps evalue bitscore"', help="")
+    p.add_argument("-n", "--num_threads", type=int, default=1, help="")
+    p.add_argument("-v", type=str, default="Y", choices=("Y","N"), help="")
+    p.add_argument("-d", "--delete", action="store_true", default=False, help="")
     args = p.parse_args()
     
     if args.help:
