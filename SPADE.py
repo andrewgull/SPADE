@@ -43,8 +43,8 @@ class SPADE(object):
         self.format_type = None
 
     def load(self, file_name):
-        if file_name.split(".")[-1] == "fasta" or file_name.split(".")[-1] == "fna" or file_name.split(".")[
-            -1] == "faa" or args.f == "fasta":
+        if file_name.split(".")[-1] == "fasta" or file_name.split(".")[-1] == "fna" or \
+                file_name.split(".")[-1] == "faa" or args.f == "fasta":
             self.f_parse = SeqIO.parse(args.input, "fasta")
             self.format_type = "fasta"
 
@@ -908,7 +908,7 @@ class HRA(object):
                         else:
                             new_motif = new_motif[
                                         :e - (len(self.query_list[i]) - int(blast[n][10]) - 1)] + consensus_motif[e - (
-                                        len(self.query_list[i]) - int(blast[n][10]) - 1):]
+                                    len(self.query_list[i]) - int(blast[n][10]) - 1):]
                         new_motifs.append(new_motif)
 
                     flag = 0
@@ -1311,8 +1311,6 @@ if __name__ == "__main__":
     if args.version:
         print("SPADE: {}".format(__version__))
         exit()
-
-
 
     spade = SPADE()
     if args.input != "None":
