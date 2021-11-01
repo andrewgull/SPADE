@@ -3,6 +3,7 @@
 import os
 import re
 import copy
+import shutil
 import time
 import argparse
 import shutil
@@ -1327,9 +1328,12 @@ if __name__ == "__main__":
     # move all newly created dirs to a dir specified as an output
     # the following way of search for these new dirs is sensitive to the particular way of naming contigs in assembly
     # it implies that contigs in assembly are named as integers: 1,2,3,4,5 etc
+    os.mkdir(args.output_dir)
     regex = re.compile("[0-9]+")
     spade_output_dirs = [directory for directory in os.listdir(".") if regex.match(directory)]
-
-    finish = open("finish.txt", "w")
-    finish.write("finish")
-    finish.close()
+    for directory in spade_output_dirs:
+        shutil.move(src=directory, dst=args.output_dir)
+    # finish = open("finish.txt", "w")
+    # finish.write("finish")
+    # finish.close()
+    print("Done")
