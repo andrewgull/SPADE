@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import re
 import copy
 import time
 import argparse
@@ -1323,6 +1324,12 @@ if __name__ == "__main__":
               [args.t, args.Nk, args.Nw, args.Ng, args.Ns, args.Np, args.Nu, args.Nm, args.Nr, args.Nq, args.Pk,
                args.Pw, args.Pg, args.Ps, args.Pp, args.Pu, args.Pm, args.Pr, args.Pq, args.v, args.delete, args.mafft,
                args.blastn, args.blastp])
+    # move all newly created dirs to a dir specified as an output
+    # the following way of search for these new dirs is sensitive to the particular way of naming contigs in assembly
+    # it implies that contigs in assembly are named as integers: 1,2,3,4,5 etc
+    regex = re.compile("[0-9]+")
+    spade_output_dirs = [directory for directory in os.listdir(".") if regex.match(directory)]
+
     finish = open("finish.txt", "w")
     finish.write("finish")
     finish.close()
