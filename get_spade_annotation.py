@@ -18,9 +18,9 @@ def get_args():
     )
 
     parser.add_argument("-i", "--input_dir", type=str, metavar="<path>",
-                        help="path to a dir with SPADE.gb files, they are allowed to be in subdirectories")
+                        help="path to SPADE output dir with SPADE.gb files in subdirectories")
     parser.add_argument("-o", "--output", type=str, metavar="<output file>",
-                        help="output file with repeats summary, tab-separated")
+                        help="output file with repeats summary, tab-separated (should be prefixed by the input dir)")
     return parser.parse_args()
 
 
