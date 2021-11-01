@@ -11,6 +11,17 @@ import math
 import shutil
 import collections
 import subprocess
+import numpy as np
+import multiprocessing as mp
+import visualisation as vs
+from scipy import signal
+from Bio import Alphabet
+from Bio.Seq import Seq
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.SeqFeature import SeqFeature, FeatureLocation, CompoundLocation
+from kmer_count import *
+from weblogolib import *
 
 __version__ = "1.0.0"
 
@@ -1308,17 +1319,7 @@ if __name__ == "__main__":
         print("SPADE: {}".format(__version__))
         exit()
 
-    import numpy as np
-    import multiprocessing as mp
-    import visualisation as vs
-    from scipy import signal
-    from Bio import Alphabet
-    from Bio.Seq import Seq
-    from Bio import SeqIO
-    from Bio.SeqRecord import SeqRecord
-    from Bio.SeqFeature import SeqFeature, FeatureLocation, CompoundLocation
-    from kmer_count import *
-    from weblogolib import *
+
 
     spade = SPADE()
     if args.input != "None":
