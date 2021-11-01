@@ -1302,6 +1302,7 @@ if __name__ == "__main__":
     p.add_argument("-d", "--delete", action="store_true", default=False,
                    help="This option deletes descendant output folders of highly repetitive regions that are detected "
                         "not to contain periodic repeats")
+    p.add_argument("-o", "--output_dir", type=str, metavar="<output directory name>", help="")
     args = p.parse_args()
 
     # if args.help:
