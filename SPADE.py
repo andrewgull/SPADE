@@ -1,23 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import csv
-import sys
 import copy
 import time
-import pickle
 import argparse
-import math
 import shutil
-import collections
 import subprocess
-import numpy as np
 import multiprocessing as mp
 import visualisation as vs
 from scipy import signal
 from Bio import Alphabet
 from Bio.Seq import Seq
-from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.SeqFeature import SeqFeature, FeatureLocation, CompoundLocation
 from kmer_count import *
