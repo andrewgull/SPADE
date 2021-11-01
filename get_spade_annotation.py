@@ -4,6 +4,7 @@ import os
 from Bio import SeqIO
 import argparse
 from glob import glob
+import sys
 
 
 def get_args():
@@ -30,6 +31,10 @@ def get_spade_annotations(dir_name="."):
     periodic_repeats = list()
     # spade_gbk_list = [f for f in dirs if "SPADE" in f]
     spade_gbk_list = glob(dir_name + "/*/*_SPADE.gb")
+    print("%i SPADE gb files found..." % len(spade_gbk_list))
+    if len(spade_gbk_list) == 0:
+        print("Exiting..")
+        sys.exit()
     for gbk in spade_gbk_list:
         for record in list(SeqIO.parse(gbk, "genbank")):
             gbk_id = record.id
