@@ -112,7 +112,8 @@ if __name__ == "__main__":
     args = get_args()
     # normalize paths
     input_name = os.path.normpath(args.input_dir)
-    output_name = os.path.join(args.input_dir, args.output)
+    # output_name = os.path.join(args.input_dir, args.output)
+    output_name = os.path.normpath(args.output)
     # open the file
     output = open(output_name, "w")
     output.write("\t".join(["NCBI RefSeqID", "Start", "End", "Period", "Periodicity", "#Repeat unit", "Sequence type",
